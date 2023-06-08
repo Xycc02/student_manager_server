@@ -53,4 +53,7 @@ public interface StudentCourseTeacherMapper {
 
     @Delete("DELETE FROM studentms.sct WHERE sid = #{sct.sid} AND tid = #{sct.tid} AND cid = #{sct.cid}")
     public boolean deleteBySCT(@Param("sct") StudentCourseTeacher sct);
+
+    @Delete("DELETE FROM studentms.sct WHERE cid = #{cid}")
+    void deleteByCId(Integer cid);
 }

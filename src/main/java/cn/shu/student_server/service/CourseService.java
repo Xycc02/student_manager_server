@@ -2,8 +2,11 @@ package cn.shu.student_server.service;
 
 import cn.shu.student_server.entity.Course;
 import cn.shu.student_server.mapper.CourseMapper;
+import cn.shu.student_server.mapper.CourseTeacherMapper;
+import cn.shu.student_server.mapper.StudentCourseTeacherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,10 @@ import java.util.Map;
 public class CourseService {
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private CourseTeacherMapper courseTeacherMapper;
+    @Autowired
+    private StudentCourseTeacherMapper studentCourseTeacherMapper;
 
     public List<Course> findBySearch(Map<String, String> map) {
         Integer cid = null;
@@ -80,6 +87,8 @@ public class CourseService {
     }
 
     public boolean deleteById(Integer cid) {
+        courseTeacherMapper.deleteByCId(cid);
+        studentCourseTeacherMapper.deleteByCId(cid);
         return courseMapper.deleteById(cid);
     }
 
